@@ -5,7 +5,9 @@
 
 # CMD		[ "nginx", "-g", "daemon off;" ]
 
-FROM ubuntu:latest
+
+
+FROM debian:10.13
 
 EXPOSE 80
 
