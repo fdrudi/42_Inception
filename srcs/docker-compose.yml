@@ -5,10 +5,13 @@ services:
     build: requirements/nginx
     container_name: nginx
     ports:
-      - "80:80"
+      # - "80:80"
+      - "443:443"
     volumes:
-      - "~/goinfre/42_Inception/wordpress:/var/www/html"
+      - "~/goinfre/42_Inception/wordpress:/var/www/html" #/home/fdrudi/data
     restart:  always
+
+
 
   mariadb:
     build: requirements/mariadb
@@ -16,10 +19,14 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - "~/goinfre/42_Inception/mariadb:/var/lib/mysql"
+      - "~/goinfre/42_Inception/mariadb:/var/lib/mysql" #/home/fdrudi/data
     environment:
       MYSQL_ROOT_PASSWORD: $(MYSQL_ROOT_PASSWORD)
       WP_DB_NAME: $(WP_DB_NAME)
       WP_DB_USER: $(WP_DB_USER)
       WP_DB_PASSWORD: $(WP_DB_PASSWORD)
     restart:  always
+
+volumes:
+
+  

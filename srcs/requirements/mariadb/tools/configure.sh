@@ -34,8 +34,8 @@ GRANT ALL PRIVILEGES ON $WP_DB_NAME.* TO '$WP_DB_USER'@'%';
 FLUSH PRIVILEGES;
 EOF
 
-	/usr/bin/mysqld --user=mysql --bootstrap < $tfile
-	rm -f $tfile
+	/usr/bin/mysqld --user=mysql --bootstrap < $tmp
+	rm -f $tmp
 fi
 
 sed -i "s|skip-networking|# skip-networking|g" /etc/my.cnf.d/mariadb-server.cnf
