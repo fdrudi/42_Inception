@@ -1,9 +1,25 @@
-# version: '3'
-# services:
+version: '3'
+services:
 
-#   nginx:
-#     build: requirements/nginx
-#     container_name: nginx
-#     ports:
-#       - "80:80"
-#     restart: always
+  nginx:
+    build: requirements/nginx
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - "~/goinfre/42_Inception/wordpress:/var/www/html"
+    restart:  always
+
+  mariadb:
+    build: requirements/mariadb
+    container_name: mariadb
+    ports:
+      - "3306:3306"
+    volumes:
+      - "~/goinfre/42_Inception/mariadb:/var/lib/mysql"
+    environment:
+      MYSQL_ROOT_PASSWORD: $(MYSQL_ROOT_PASSWORD)
+      WP_DB_NAME: $(WP_DB_NAME)
+      WP_DB_USER: $(WP_DB_USER)
+      WP_DB_PASSWORD: $(WP_DB_PASSWORD)
+    restart:  always
