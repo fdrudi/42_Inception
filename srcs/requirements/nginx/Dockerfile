@@ -1,12 +1,3 @@
-# FROM	alpine:3.16
-
-# RUN		apk update && apk upgrade && \
-# 		apk add --no-cache nginx
-
-# CMD		[ "nginx", "-g", "daemon off;" ]
-
-
-
 # FROM debian:10.13
 
 # EXPOSE 80
@@ -37,12 +28,14 @@ RUN			apk update && apk upgrade && \
 RUN			mkdir /etc/nginx/ssl
 RUN			mkdir -p /run/nginx
 
+RUN			mkdir -p /var/www/html
+
 RUN			openssl req -newkey rsa:2048 -x509 -sha256 -days 365 -nodes \
 			-keyout /etc/nginx/ssl/fdrudi.key \
 			-out	/etc/nginx/ssl/fdrudi.pem \
 			-subj   "/C=IT/ST=Italy/L=Rome/O=42 Rome/OU=fdrudi/CN=fdrudi/"
 
 COPY		conf/nginx.conf /etc/nginx/conf.d/default.conf
-COPY		conf/test.html /var/www/index4.html
+COPY		conf/test.html /var/www/html/index4.html
 
 ENTRYPOINT	["nginx", "-g", "daemon off;"]

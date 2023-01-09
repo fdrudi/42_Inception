@@ -2,31 +2,58 @@ version: '3'
 services:
 
   nginx:
-    build: requirements/nginx
+    build: requirements/nginx/
     container_name: nginx
     ports:
-      # - "80:80"
       - "443:443"
     volumes:
-      - "~/goinfre/42_Inception/wordpress:/var/www/html" #/home/fdrudi/data
+      - "~/goinfre/inception/data/wp_files:/var/www/html" #/home/fdrudi/data/wp_files
+    depends_on:
+      - wordpress
+    networks:
+      - server
     restart:  always
 
-
+  wordpress:
+    build: requirements/wordpress/
+    container_name: wordpress
+    ports:
+      - "9000:9000"
+    volumes:
+      - "~/goinfre/inception/data/wp_files:/var/www/html" #/home/fdrudi/data/wp_files
+    depends_on:
+      - mariadb
+    environment:
+      MYSQL_HOSTNAME:    ${MYSQL_HOST}
+      WP_DB_NAME:        ${WP_DB_NAME}
+      WP_DB_USER:        ${WP_DB_USER}
+      WP_DB_PASSWORD:    ${WP_DB_PASSWORD}
+      DOMAIN_NAME:       ${DOMAIN_NAME}
+      WP_ADMIN_USER:     ${WP_ADMIN_USER}
+      WP_ADMIN_PASSWORD: ${WP_ADMIN_PASSWORD}
+      WP_ADMIN_EMAIL:    ${WP_ADMIN_EMAIL}
+      WP_USER:           ${WP_USER}
+      WP_PASSWORD:       ${WP_PASSWORD}
+      WP_EMAIL:          ${WP_EMAIL}
+    networks:
+      - server
+    restart:  always
 
   mariadb:
-    build: requirements/mariadb
+    build: requirements/mariadb/
     container_name: mariadb
     ports:
       - "3306:3306"
     volumes:
-      - "~/goinfre/42_Inception/mariadb:/var/lib/mysql" #/home/fdrudi/data
+      - "~/goinfre/inception/data/wp_db:/var/lib/mysql" #/home/fdrudi/data/wp_db
     environment:
       MYSQL_ROOT_PASSWORD: $(MYSQL_ROOT_PASSWORD)
-      WP_DB_NAME: $(WP_DB_NAME)
-      WP_DB_USER: $(WP_DB_USER)
-      WP_DB_PASSWORD: $(WP_DB_PASSWORD)
+      WP_DB_NAME:          $(WP_DB_NAME)
+      WP_DB_USER:          $(WP_DB_USER)
+      WP_DB_PASSWORD:      $(WP_DB_PASSWORD)
+    networks:
+      - server
     restart:  always
 
-volumes:
-
-  
+networks:
+  server:
