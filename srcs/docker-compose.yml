@@ -7,7 +7,7 @@ services:
     ports:
       - "443:443"
     volumes:
-      - "~/goinfre/inception/data/wp_files:/var/www/html" #/home/fdrudi/data/wp_files
+      - "wp_files:/var/www/html" #/home/fdrudi/data/wp_files
     depends_on:
       - wordpress
     networks:
@@ -20,11 +20,11 @@ services:
     ports:
       - "9000:9000"
     volumes:
-      - "~/goinfre/inception/data/wp_files:/var/www/html" #/home/fdrudi/data/wp_files
+      - "wp_files:/var/www/html" #/home/fdrudi/data/wp_files
     depends_on:
       - mariadb
     environment:
-      MYSQL_HOSTNAME:    ${MYSQL_HOST}
+      MYSQL_HOSTNAME:    ${MYSQL_HOSTNAME}
       WP_DB_NAME:        ${WP_DB_NAME}
       WP_DB_USER:        ${WP_DB_USER}
       WP_DB_PASSWORD:    ${WP_DB_PASSWORD}
@@ -45,15 +45,19 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - "~/goinfre/inception/data/wp_db:/var/lib/mysql" #/home/fdrudi/data/wp_db
+      - "wp_db:/var/lib/mysql" #/home/fdrudi/data/wp_db
     environment:
-      MYSQL_ROOT_PASSWORD: $(MYSQL_ROOT_PASSWORD)
-      WP_DB_NAME:          $(WP_DB_NAME)
-      WP_DB_USER:          $(WP_DB_USER)
-      WP_DB_PASSWORD:      $(WP_DB_PASSWORD)
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      WP_DB_NAME:          ${WP_DB_NAME}
+      WP_DB_USER:          ${WP_DB_USER}
+      WP_DB_PASSWORD:      ${WP_DB_PASSWORD}
     networks:
       - server
     restart:  always
 
 networks:
   server:
+
+volumes:
+  wp_db:
+  wp_files:
