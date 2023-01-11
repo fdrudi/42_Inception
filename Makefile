@@ -8,11 +8,12 @@ linux:
 stop:
 	@ docker-compose -f srcs/docker-compose.yml down
 
-# clean: stop
-# 	@ rm -rf ~/Desktop/inception
+clean: stop
+	@ rm -rf /goinfre/fdrudi/inception
+#	@ docker stop $(docker ps -qa); docker rm $(docker ps -qa); docker rmi -f $(docker images -qa); docker volume rm $(docker volume ls -q); docker network rm $(docker network ls -q) 2>/dev/null
 
 prune: clean
-	@ docker system prune -f
+	@ docker system prune -a -f
 
 reload:
 	@ docker-compose -f srcs/docker-compose.yml up --build
