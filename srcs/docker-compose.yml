@@ -70,7 +70,7 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /goinfre/fdrudi/inception/wp_db #/home/fdrudi/data/wp_db
+      device: /home/fdrudi/data/wp_db
 
   wp_files:
     driver: local
@@ -78,5 +78,5 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /goinfre/fdrudi/inception/wp_files #/home/fdrudi/data/wp_files
+      device: /home/fdrudi/data/wp_files
 
