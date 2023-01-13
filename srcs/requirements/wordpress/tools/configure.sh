@@ -11,7 +11,7 @@ done
 if [ ! -f "/var/www/html/wordpress/index.php" ];
 then
 
-	mv /tmp/index.html /var/www/html/index.html
+	mv /tmp/index.html /var/www/html/wordpress/index.html
 
 	wp core download --allow-root
 	wp config create --dbname=$WP_DB_NAME --dbuser=$WP_DB_USER --dbpass=$WP_DB_PASSWORD --dbhost=$MYSQL_HOSTNAME --dbcharset="utf8" --dbcollate="utf8_general_ci" --allow-root
@@ -21,6 +21,6 @@ then
 	wp theme activate twentytwentythree --allow-root
 fi
 
-echo "WORDPRESS STARTING STATUS : OK"
+echo "WORDPRESS START STATUS : OK"
+
 /usr/sbin/php-fpm7 -F -R
-echo "WORDPRESS STARTED : OK"
