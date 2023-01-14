@@ -12,6 +12,13 @@ then
 
 	mv /tmp/index.html /var/www/html/wordpress/index.html
 
+	# Enable Redis Object Cache plugin
+	wp plugin install --activate redis-cache --allow-root
+
+	# Configure the plugin with Redis hostname and port
+	wp config set object_cache_redis_host $REDIS_HOSTNAME --allow-root
+	wp config set object_cache_redis_port $REDIS_PORT --allow-root
+
 	wp core download --allow-root
 	wp config create --dbname=$WP_DB_NAME --dbuser=$WP_DB_USER --dbpass=$WP_DB_PASSWORD --dbhost=$MYSQL_HOSTNAME --dbcharset="utf8" --dbcollate="utf8_general_ci" --allow-root
 	wp db create --allow-root
