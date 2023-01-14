@@ -4,7 +4,6 @@
 
 while ! mariadb -h$MYSQL_HOSTNAME -u$WP_DB_USER -p$WP_DB_PASSWORD $WP_DB_NAME &>/dev/null;
 do
-	echo ciao
     sleep 3
 done
 

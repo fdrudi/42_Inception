@@ -58,7 +58,6 @@ services:
       - server
     restart:  always
 
-#####################
   adminer:
     image: adminer:4.7.8
     restart: always
@@ -66,7 +65,8 @@ services:
       ADMINER_DEFAULT_SERVER: mariadb
     ports:
       - 8080:8080
-#####################
+    networks:
+      - server
 
 networks:
   server:
