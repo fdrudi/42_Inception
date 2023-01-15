@@ -71,6 +71,21 @@ services:
     networks:
       - server
 
+  ftp-server:
+    build: requirements/bonus/ftp-server/
+    image: ftp-server
+    container_name: ftp-server
+    ports:
+      - "21:21"
+    volumes:
+      - wp_files:/var/www/html/
+    environment:
+      FTP_USER: ${FTP_USER}
+      FTP_PWD:  ${FTP_PWD}
+    restart: always
+    networks:
+      - server
+
   adminer:
     build: requirements/bonus/adminer/
     image: adminer
