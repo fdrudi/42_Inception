@@ -4,14 +4,10 @@ RUN		apk update && apk upgrade && \
 		apk add --no-cache \
 		vsftpd
 
-RUN		adduser -D ${FTP_USER}
+COPY	conf/vsftpd.conf	/tmp/vsftpd.conf
+COPY	conf/banner.txt		/etc/vsftpd/banner.txt
+COPY	tools/configure.sh	/tmp/configure.sh
 
-RUN		echo "${FTP_USER}:${FTP_PWD}" | /usr/sbin/chpasswd
+RUN		touch /etc/vsftpd.allowed_users
 
-RUN		mkdir /etc/vsftpd/vconf
-
-RUN		echo ${FTP_USER} > /etc/vsftpd/vconf/user_list
-
-COPY	conf/vsftpd.conf /etc/vsftpd/vsftpd.conf
-
-CMD		[ "vsftpd" ]
+ENTRYPOINT	[ "sh", "/tmp/configure.sh" ]

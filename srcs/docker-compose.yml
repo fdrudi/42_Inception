@@ -77,8 +77,11 @@ services:
     container_name: ftp-server
     ports:
       - "21:21"
+      - "50500-50600:50500-50600"
     volumes:
-      - wp_files:/var/www/html/
+      - wp_files:/var/www/html
+    depends_on:
+      - nginx
     environment:
       FTP_USER: ${FTP_USER}
       FTP_PWD:  ${FTP_PWD}
@@ -94,7 +97,19 @@ services:
     environment:
       ADMINER_DEFAULT_SERVER: mariadb
     ports:
-      - 8080:8080
+      - "8080:8080"
+    networks:
+      - server
+
+  site:
+    build: requirements/bonus/site/
+    image: site
+    container_name: site
+    restart: always
+    ports:
+      - "1111:1111"
+    depends_on:
+      - nginx
     networks:
       - server
 

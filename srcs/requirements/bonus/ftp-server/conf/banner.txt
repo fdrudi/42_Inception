@@ -1,0 +1,2 @@
+Willkommen! Bienvenue! Welcome! To FTP server of inception!
+Posizione corrente: /var/www/html
