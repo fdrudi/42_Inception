@@ -113,6 +113,24 @@ services:
     networks:
       - server
 
+  portainer:
+    build: requirements/bonus/portainer/
+    image: portainer
+    container_name: portainer
+    restart: always
+    ports:
+      - "9443:9443"
+    depends_on:
+      - nginx
+      - wordpress
+      - mariadb
+      - redis
+      - adminer
+      - ftp-server
+      - site
+    networks:
+      - server
+
 networks:
   server:
     name: server_nw
@@ -135,3 +153,10 @@ volumes:
       o: bind
       device: /home/fdrudi/data/wp_files
 
+  portainer_data:
+    driver: local
+    name: portainer_data
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/fdrudi/data/portainer_data

@@ -12,7 +12,6 @@ then
 
 	mv /tmp/index.html /var/www/html/wordpress/index.html
 
-	# Enable FTP Access plugin
 
 	wp core download --allow-root
 	wp config create --dbname=$WP_DB_NAME --dbuser=$WP_DB_USER --dbpass=$WP_DB_PASSWORD --dbhost=$MYSQL_HOSTNAME --dbcharset="utf8" --dbcollate="utf8_general_ci" --allow-root
@@ -21,7 +20,9 @@ then
 	wp user create $WP_USER $WP_EMAIL --role=author --user_pass=$WP_PASSWORD --allow-root
 	wp theme activate twentytwentythree --allow-root
 
+	# Enable FTP Access plugin
 	wp plugin install ftp-access --activate --allow-root
+	wp plugin update --all --allow-root
 
 	# Enable Redis Object Cache plugin
 	wp plugin install redis-cache --activate --allow-root
