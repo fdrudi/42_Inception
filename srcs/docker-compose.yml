@@ -77,7 +77,7 @@ services:
     container_name: ftp-server
     ports:
       - "21:21"
-      - "50500-50600:50500-50600"
+      - "65100-65200:65100-65200"
     volumes:
       - wp_files:/var/www/html
     depends_on:
